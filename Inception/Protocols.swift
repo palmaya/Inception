@@ -16,5 +16,5 @@ protocol Camera {
 }
 
 protocol CameraDelegate: class {
-    func process(_ imageBuffer: CVImageBuffer)
+    func process(_ pixelBuffer: CVImageBuffer, cameraIntrinsics: Any?)
 }

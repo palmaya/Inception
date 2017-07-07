@@ -101,8 +101,9 @@ class CameraDevice : NSObject, Camera, AVCaptureVideoDataOutputSampleBufferDeleg
     // MARK: - AVCaptureVideoDataOutputSampleBufferDelegate Methods
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        if let imageBuffer : CVImageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
-            delegate?.process(imageBuffer)
-        }
+        guard let pixelBuffer : CVImageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        
+        let cameraIntrinsicData = CMGetAttachment(sampleBuffer, kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, nil)
+        delegate?.process(pixelBuffer, cameraIntrinsics: cameraIntrinsicData)
     }
 }
