@@ -8,7 +8,7 @@
 
 import Foundation
 import AVFoundation
-import QuartzCore
+import UIKit
 
 class CameraDevice : NSObject, Camera, AVCaptureVideoDataOutputSampleBufferDelegate {
     
@@ -17,6 +17,7 @@ class CameraDevice : NSObject, Camera, AVCaptureVideoDataOutputSampleBufferDeleg
     fileprivate var input : AVCaptureInput?
     fileprivate var output : AVCaptureOutput?
     fileprivate let previewLayer : AVCaptureVideoPreviewLayer
+    
     weak var delegate : CameraDelegate?
     
     var preview : CALayer {
@@ -95,6 +96,27 @@ class CameraDevice : NSObject, Camera, AVCaptureVideoDataOutputSampleBufferDeleg
             } else {
                 print("Access denied for video capture.")
             }
+        }
+    }
+    
+    func setPreviewOrientation(_ orientation: UIInterfaceOrientation) {
+        var captureVideoOrientation : AVCaptureVideoOrientation
+        
+        switch orientation {
+        case .unknown:
+            return
+        case .portrait:
+            captureVideoOrientation = .portrait
+        case .portraitUpsideDown:
+            captureVideoOrientation = .portraitUpsideDown
+        case .landscapeLeft:
+            captureVideoOrientation = .landscapeLeft
+        case .landscapeRight:
+            captureVideoOrientation = .landscapeRight
+        }
+        
+        if let connection = self.previewLayer.connection, connection.isVideoOrientationSupported {
+            connection.videoOrientation = captureVideoOrientation
         }
     }
     

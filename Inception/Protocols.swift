@@ -7,12 +7,13 @@
 //
 
 import Foundation
-import QuartzCore
+import UIKit
 import CoreVideo
 
 protocol Camera {
     var preview : CALayer { get }
     func record()
+    func setPreviewOrientation(_ orientation: UIInterfaceOrientation)
 }
 
 protocol CameraDelegate: class {

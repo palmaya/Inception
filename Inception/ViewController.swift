@@ -12,8 +12,7 @@ import Vision
 class ViewController: UIViewController, CameraDelegate {
     
     private var camera: Camera!
-    private var previewLayer: CALayer!
-    private var printLabel: UILabel!
+    private var customView: View!
     private var requests = [VNRequest]()
     private var lastClassification : (identifier: String, confidence: VNConfidence)?
 
@@ -21,6 +20,12 @@ class ViewController: UIViewController, CameraDelegate {
         super.viewDidLoad()
         
         setupVision()
+        
+        let camera = CameraDevice()
+        camera.delegate = self
+        camera.record()
+        self.camera = camera
+        
         setupViews()
     }
     
@@ -34,38 +39,21 @@ class ViewController: UIViewController, CameraDelegate {
     }
     
     private func setupViews() {
-        let label = UILabel()
-        self.view.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.width.equalTo(view)
-            make.bottom.equalTo(view)
-            make.height.equalTo(75)
-        }
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.textAlignment = .center
-        self.printLabel = label
+        let customView = View()
+        self.customView = customView
+        customView.setupViewWithPreview(camera.preview)
         
-        let camera = CameraDevice()
-        camera.delegate = self
-        camera.record()
-        self.camera = camera
+        self.view.addSubview(customView)
         
-        let previewView = UIView()
-        self.view.addSubview(previewView)
-        previewView.snp.makeConstraints { make in
-            make.width.equalTo(view)
-            make.centerX.equalTo(view)
-            make.bottom.equalTo(label.snp.top)
-            make.top.equalTo(view)
+        customView.snp.makeConstraints { make in
+            make.width.equalTo(self.view)
+            make.centerX.equalTo(self.view)
+            make.bottom.equalTo(self.view)
+            make.top.equalTo(self.view)
         }
+        
         self.view.setNeedsLayout()
-        self.view.layoutSubviews()
-        
-        let previewLayer = camera.preview
-        previewLayer.frame = previewView.frame
-        previewView.layer.addSublayer(previewLayer)
-        
-        self.previewLayer = previewLayer
+        self.view.layoutIfNeeded()
     }
     
     fileprivate func processResults(request: VNRequest, error: Error?) {
@@ -79,17 +67,17 @@ class ViewController: UIViewController, CameraDelegate {
         
         DispatchQueue.main.async {
             guard let classification = classifications.first else {
-                self.printLabel.font = UIFont.systemFont(ofSize: 17)
-                self.printLabel.text = "... (?)"
+                self.customView.printLabel.font = UIFont.systemFont(ofSize: 17)
+                self.customView.printLabel.text = "... (?)"
                 self.lastClassification = nil
                 return
             }
             if classification.confidence > 0.5 {
-                self.printLabel.font = UIFont.boldSystemFont(ofSize: 17)
+                self.customView.printLabel.font = UIFont.boldSystemFont(ofSize: 17)
             } else if let lastClassification = self.lastClassification, !(lastClassification.identifier == classification.identifier) {
-                self.printLabel.font = UIFont.systemFont(ofSize: 17)
+                self.customView.printLabel.font = UIFont.systemFont(ofSize: 17)
             }
-            self.printLabel.text = "\(classification.identifier) \(classification.confidence)"
+            self.customView.printLabel.text = "\(classification.identifier) \(classification.confidence)"
             self.lastClassification = classification
         }
     }
@@ -134,6 +122,18 @@ class ViewController: UIViewController, CameraDelegate {
         } catch {
             print(error)
         }
+    }
+    
+    // MARK: - Device
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        coordinator.animate(alongsideTransition: nil, completion: { _ in
+            //maybe put in viewdidlayoutsubviews
+            self.camera.setPreviewOrientation(UIApplication.shared.statusBarOrientation)
+        })
+        
+        super.viewWillTransition(to: size, with: coordinator)
     }
 }
 

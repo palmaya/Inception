@@ -17,6 +17,7 @@
 		771CE7F11F009293008C7AF6 /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 771CE7F01F009293008C7AF6 /* Inceptionv3.mlmodel */; };
 		771CE7F31F0097B4008C7AF6 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771CE7F21F0097B4008C7AF6 /* Protocols.swift */; };
 		771CE7F51F0097CE008C7AF6 /* CameraDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771CE7F41F0097CE008C7AF6 /* CameraDevice.swift */; };
+		77557F1A1F12B5BC008616B8 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77557F191F12B48F008616B8 /* View.swift */; };
 		777266B11F0F1140008A1DF3 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777266B01F0F1140008A1DF3 /* Utilities.swift */; };
 		777266B31F0F133A008A1DF3 /* ClassificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777266B21F0F133A008A1DF3 /* ClassificationManager.swift */; };
 		77EA3E911F04857600048C43 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EA3E6F1F04854800048C43 /* Constraint.swift */; };
@@ -88,6 +89,7 @@
 		771CE7F01F009293008C7AF6 /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = Inceptionv3.mlmodel; path = ../../../../Downloads/Inceptionv3.mlmodel; sourceTree = "<group>"; };
 		771CE7F21F0097B4008C7AF6 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		771CE7F41F0097CE008C7AF6 /* CameraDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDevice.swift; sourceTree = "<group>"; };
+		77557F191F12B48F008616B8 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		777266B01F0F1140008A1DF3 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		777266B21F0F133A008A1DF3 /* ClassificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationManager.swift; sourceTree = "<group>"; };
 		77EA3E6F1F04854800048C43 /* Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 		771CE7C11F009280008C7AF6 /* Inception */ = {
 			isa = PBXGroup;
 			children = (
+				77557F181F12B483008616B8 /* View */,
 				77F0938D1F032DF50002E714 /* ThirdParty */,
 				771CE7F01F009293008C7AF6 /* Inceptionv3.mlmodel */,
 				771CE7C21F009280008C7AF6 /* AppDelegate.swift */,
@@ -206,6 +209,14 @@
 				771CE7E41F009280008C7AF6 /* Info.plist */,
 			);
 			path = InceptionUITests;
+			sourceTree = "<group>";
+		};
+		77557F181F12B483008616B8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				77557F191F12B48F008616B8 /* View.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		77EA3E6E1F04854800048C43 /* SnapKit */ = {
@@ -407,6 +418,7 @@
 				77EA3EA61F0485D000048C43 /* ConstraintMaker.swift in Sources */,
 				77EA3E9F1F0485BB00048C43 /* ConstraintPriority.swift in Sources */,
 				77EA3E951F04859800048C43 /* UILayoutSupport+Extensions.swift in Sources */,
+				77557F1A1F12B5BC008616B8 /* View.swift in Sources */,
 				77EA3EA91F0485DA00048C43 /* ConstraintLayoutGuideDSL.swift in Sources */,
 				77EA3EA01F0485BD00048C43 /* ConstraintOffsetTarget.swift in Sources */,
 				77EA3EA41F0485C800048C43 /* ConstraintMakerFinalizable.swift in Sources */,
@@ -486,6 +498,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -541,6 +554,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
